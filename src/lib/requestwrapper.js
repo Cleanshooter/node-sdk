@@ -18,7 +18,7 @@
 
 const extend = require('extend');
 const request = require('request');
-const pkg = require('../package.json');
+const pkg = require('../../package.json');
 const helper = require('./helper');
 const parseString = require('string');
 const readableStream = require('stream').PassThrough;
