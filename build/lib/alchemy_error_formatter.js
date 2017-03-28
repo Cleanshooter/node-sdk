@@ -16,7 +16,7 @@
 
 'use strict';
 
-const extend = require('extend');
+var extend = require('extend');
 
 module.exports = function alchemyErrorFormatter(cb) {
   return function (err, result, response) {

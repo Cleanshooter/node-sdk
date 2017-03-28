@@ -16,13 +16,15 @@
 
 'use strict';
 
-const extend = require('extend');
-const request = require('request');
-const pkg = require('../../package.json');
-const helper = require('./helper');
-const parseString = require('string');
-const readableStream = require('stream').PassThrough;
-const isBrowser = typeof window === 'object';
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var extend = require('extend');
+var request = require('request');
+var pkg = require('../../package.json');
+var helper = require('./helper');
+var parseString = require('string');
+var readableStream = require('stream').PassThrough;
+var isBrowser = (typeof window === 'undefined' ? 'undefined' : _typeof(window)) === 'object';
 
 /**
  * @private
@@ -34,7 +36,7 @@ function parsePath(path, params) {
   if (!path || !params) {
     return path;
   }
-  const escapedParams = {};
+  var escapedParams = {};
   Object.keys(params).forEach(function (value) {
     escapedParams[value] = encodeURIComponent(params[value]);
   });
@@ -72,8 +74,8 @@ function formatErrorIfExists(cb) {
     // If we have a response and it contains an error
     if (body && (body.error || body.error_code)) {
       // visual recognition sets body.error to a json object with code/description/error_id instead of putting them top-left
-      if (typeof body.error === 'object' && body.error.description) {
-        const errObj = body.error; // just in case there's a body.error.error...
+      if (_typeof(body.error) === 'object' && body.error.description) {
+        var errObj = body.error; // just in case there's a body.error.error...
         Object.keys(body.error).forEach(function (key) {
           body[key] = body.error[key];
         });
@@ -112,16 +114,16 @@ function formatErrorIfExists(cb) {
  * @return {ReadableStream|undefined}
  */
 function createRequest(parameters, _callback) {
-  let missingParams = null;
-  const options = extend(true, {}, parameters.defaultOptions, parameters.options);
-  const path = options.path;
-  const body = options.body; // application/json or text/plain
-  const form = options.form; // application/x-www-form-urlencoded
-  const formData = options.formData; // application/x-www-form-urlencoded
-  const qs = options.qs; // Query parameters
+  var missingParams = null;
+  var options = extend(true, {}, parameters.defaultOptions, parameters.options);
+  var path = options.path;
+  var body = options.body; // application/json or text/plain
+  var form = options.form; // application/x-www-form-urlencoded
+  var formData = options.formData; // application/x-www-form-urlencoded
+  var qs = options.qs; // Query parameters
 
   // Provide a default callback if it doesn't exists
-  const callback = typeof _callback === 'function' ? _callback /* no op */ : function () {};
+  var callback = typeof _callback === 'function' ? _callback /* no op */ : function () {};
 
   // Missing parameters
   if (parameters.options.requiredParams) {
@@ -135,7 +137,7 @@ function createRequest(parameters, _callback) {
     if (typeof _callback === 'function') {
       return callback(missingParams);
     } else {
-      const errorStream = readableStream();
+      var errorStream = readableStream();
       setTimeout(function () {
         errorStream.emit('error', missingParams);
       }, 0);

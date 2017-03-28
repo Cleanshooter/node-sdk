@@ -17,7 +17,7 @@
 'use strict';
 
 module.exports = {
-  stripTrailingSlash: function (url) {
+  stripTrailingSlash: function stripTrailingSlash(url) {
     // Match a forward slash / at the end of the string ($)
     return url.replace(/\/$/, '');
   },
@@ -27,8 +27,8 @@ module.exports = {
    * @param requires
    * @return {Error|null}
    */
-  getMissingParams: function (params, requires) {
-    let missing;
+  getMissingParams: function getMissingParams(params, requires) {
+    var missing = void 0;
 
     if (!requires) {
       return null;
@@ -51,7 +51,7 @@ module.exports = {
    * @param  {String}  text The 'text' to analyze
    * @return {Boolean}      true if 'text' has html tags
    */
-  isHTML: function (text) {
+  isHTML: function isHTML(text) {
     return (/<[a-z][\s\S]*>/i.test(text)
     );
   },
@@ -61,12 +61,12 @@ module.exports = {
    * @param  {Object}  params   The parameters
    * @param  {Array}  requires The keys we want to check
     */
-  getFormat: function (params, formats) {
+  getFormat: function getFormat(params, formats) {
     if (!formats || !params) {
       return null;
     }
 
-    for (let i = 0; i < formats.length; i++) {
+    for (var i = 0; i < formats.length; i++) {
       if (formats[i] in params) {
         return formats[i];
       }

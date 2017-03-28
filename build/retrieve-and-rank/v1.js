@@ -16,16 +16,16 @@
 
 'use strict';
 
-const fs = require('fs');
-const url = require('url');
-const requestFactory = require('../lib/requestwrapper');
-const solr = require('solr-client');
-const helper = require('../lib/helper');
-const pick = require('object.pick');
-const omit = require('object.omit');
-const isStream = require('isstream');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var fs = require('fs');
+var url = require('url');
+var requestFactory = require('../lib/requestwrapper');
+var solr = require('solr-client');
+var helper = require('../lib/helper');
+var pick = require('object.pick');
+var omit = require('object.omit');
+var isStream = require('isstream');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -55,7 +55,7 @@ RetrieveAndRankV1.prototype.createRanker = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/rankers',
       method: 'POST',
@@ -90,11 +90,11 @@ RetrieveAndRankV1.prototype.rank = function (params, callback) {
     return;
   }
 
-  const topLevelParams = ['answer_data', 'answers'];
-  const formData = pick(params, topLevelParams);
+  var topLevelParams = ['answer_data', 'answers'];
+  var formData = pick(params, topLevelParams);
   formData.answer_metadata = JSON.stringify(omit(params, topLevelParams));
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/rankers/{ranker_id}/rank',
       method: 'POST',
@@ -114,7 +114,7 @@ RetrieveAndRankV1.prototype.rank = function (params, callback) {
 RetrieveAndRankV1.prototype.rankerStatus = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/rankers/{ranker_id}',
       method: 'GET',
@@ -132,7 +132,7 @@ RetrieveAndRankV1.prototype.rankerStatus = function (params, callback) {
  * Retrieves the list of rankers for the user
  */
 RetrieveAndRankV1.prototype.listRankers = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/rankers',
       method: 'GET',
@@ -150,7 +150,7 @@ RetrieveAndRankV1.prototype.listRankers = function (params, callback) {
 RetrieveAndRankV1.prototype.deleteRanker = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/rankers/{ranker_id}',
       method: 'DELETE',
@@ -177,7 +177,7 @@ RetrieveAndRankV1.prototype.deleteRanker = function (params, callback) {
 RetrieveAndRankV1.prototype.listClusters = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters',
       method: 'GET',
@@ -202,7 +202,7 @@ RetrieveAndRankV1.prototype.listClusters = function (params, callback) {
 RetrieveAndRankV1.prototype.createCluster = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters',
       method: 'POST',
@@ -227,7 +227,7 @@ RetrieveAndRankV1.prototype.createCluster = function (params, callback) {
 RetrieveAndRankV1.prototype.pollCluster = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}',
       method: 'GET',
@@ -254,7 +254,7 @@ RetrieveAndRankV1.prototype.pollCluster = function (params, callback) {
 RetrieveAndRankV1.prototype.resizeCluster = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/cluster_size',
       method: 'PUT',
@@ -281,7 +281,7 @@ RetrieveAndRankV1.prototype.resizeCluster = function (params, callback) {
 RetrieveAndRankV1.prototype.getResizeStatus = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/cluster_size',
       method: 'GET',
@@ -307,7 +307,7 @@ RetrieveAndRankV1.prototype.getResizeStatus = function (params, callback) {
 RetrieveAndRankV1.prototype.deleteCluster = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}',
       method: 'DELETE',
@@ -333,7 +333,7 @@ RetrieveAndRankV1.prototype.deleteCluster = function (params, callback) {
 RetrieveAndRankV1.prototype.getClusterStats = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/stats',
       method: 'GET',
@@ -361,7 +361,7 @@ RetrieveAndRankV1.prototype.getClusterStats = function (params, callback) {
 RetrieveAndRankV1.prototype.listConfigs = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/config',
       method: 'GET',
@@ -393,7 +393,7 @@ RetrieveAndRankV1.prototype.uploadConfig = function (params, callback) {
     callback(new Error('Missing required parameters: config_zip_path'));
     return;
   }
-  let configFile = null;
+  var configFile = null;
   if (typeof params.config_zip_path === 'string') {
     configFile = fs.createReadStream(params.config_zip_path);
   } else if (isStream(params.config_zip_path)) {
@@ -403,7 +403,7 @@ RetrieveAndRankV1.prototype.uploadConfig = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/config/{config_name}',
       method: 'POST',
@@ -432,7 +432,7 @@ RetrieveAndRankV1.prototype.uploadConfig = function (params, callback) {
 RetrieveAndRankV1.prototype.getConfig = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/config/{config_name}',
       method: 'GET',
@@ -462,7 +462,7 @@ RetrieveAndRankV1.prototype.getConfig = function (params, callback) {
 RetrieveAndRankV1.prototype.deleteConfig = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/config/{config_name}',
       method: 'DELETE',
@@ -491,7 +491,7 @@ RetrieveAndRankV1.prototype.deleteConfig = function (params, callback) {
  */
 RetrieveAndRankV1.prototype.listCollections = function (params, callback) {
   params = params || {};
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/solr/admin/collections',
       method: 'GET',
@@ -525,20 +525,20 @@ RetrieveAndRankV1.prototype.listCollections = function (params, callback) {
 RetrieveAndRankV1.prototype.createCollection = function (params, callback) {
   params = params || {};
 
-  const missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name', 'config_name']);
+  var missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name', 'config_name']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const queryParams = {
+  var queryParams = {
     'collection.configName': params.config_name,
     name: params.collection_name,
     wt: params.wt || 'json',
     action: 'CREATE'
   };
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/solr/admin/collections',
       method: 'POST',
@@ -567,19 +567,19 @@ RetrieveAndRankV1.prototype.createCollection = function (params, callback) {
 RetrieveAndRankV1.prototype.deleteCollection = function (params, callback) {
   params = params || {};
 
-  const missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name']);
+  var missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const queryParams = {
+  var queryParams = {
     name: params.collection_name,
     wt: params.wt || 'json',
     action: 'DELETE'
   };
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/solr_clusters/{cluster_id}/solr/admin/collections',
       method: 'POST',
@@ -605,15 +605,15 @@ RetrieveAndRankV1.prototype.deleteCollection = function (params, callback) {
 RetrieveAndRankV1.prototype.createSolrClient = function (params) {
   params = params || {};
 
-  const missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name']);
+  var missingParams = helper.getMissingParams(params, ['cluster_id', 'collection_name']);
   if (missingParams) {
     throw missingParams;
   }
 
-  const serviceUrl = url.parse(this._options.url);
-  const apiPath = serviceUrl.path === '/' ? '' : serviceUrl.path || '';
+  var serviceUrl = url.parse(this._options.url);
+  var apiPath = serviceUrl.path === '/' ? '' : serviceUrl.path || '';
 
-  const solrClient = solr.createClient({
+  var solrClient = solr.createClient({
     host: serviceUrl.hostname,
     path: apiPath + '/v1/solr_clusters/' + params.cluster_id + '/solr',
     port: serviceUrl.port || '443',

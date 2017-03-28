@@ -16,10 +16,10 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const util = require('util');
-const BaseService = require('../lib/base_service');
-const extend = require('extend');
+var requestFactory = require('../lib/requestwrapper');
+var util = require('util');
+var BaseService = require('../lib/base_service');
+var extend = require('extend');
 
 /**
  * NaturalLanguageUnderstanding
@@ -89,7 +89,7 @@ NaturalLanguageUnderstandingV1.prototype.getCredentialsFromBluemix = function (n
   * @return {void}
   */
 NaturalLanguageUnderstandingV1.prototype.analyze = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/analyze',
       method: 'POST',
@@ -113,7 +113,7 @@ NaturalLanguageUnderstandingV1.prototype.analyze = function (params, callback) {
   * @return {void}
   */
 NaturalLanguageUnderstandingV1.prototype.listModels = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/models',
       method: 'GET',
@@ -140,7 +140,7 @@ NaturalLanguageUnderstandingV1.prototype.listModels = function (params, callback
   * @return {void}
   */
 NaturalLanguageUnderstandingV1.prototype.deleteModel = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'DELETE',
       url: '/v1/models/{model_id}',

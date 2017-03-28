@@ -16,7 +16,7 @@
 
 'use strict';
 
-const stringify = require('csv-stringify');
+var stringify = require('csv-stringify');
 
 /**
  * @private

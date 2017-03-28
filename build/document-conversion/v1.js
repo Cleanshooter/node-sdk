@@ -16,11 +16,11 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const isStream = require('isstream');
-const omit = require('object.omit');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var isStream = require('isstream');
+var omit = require('object.omit');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  * Document Conversion service
@@ -83,8 +83,8 @@ DocumentConversionV1.prototype.convert = function (params, callback) {
   if (typeof params.conversion_target === 'string') {
     params.conversion_target = params.conversion_target.toLowerCase();
   }
-  const keys = Object.keys(DocumentConversionV1.prototype.conversion_target);
-  const values = keys.map(function (v) {
+  var keys = Object.keys(DocumentConversionV1.prototype.conversion_target);
+  var values = keys.map(function (v) {
     return DocumentConversionV1.prototype.conversion_target[v];
   });
   if (values.indexOf(params.conversion_target) === -1) {
@@ -102,7 +102,7 @@ DocumentConversionV1.prototype.convert = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/convert_document',
@@ -167,7 +167,7 @@ DocumentConversionV1.prototype.index = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/index_document',

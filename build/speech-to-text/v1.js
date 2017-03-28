@@ -16,22 +16,22 @@
 
 'use strict';
 
-const extend = require('extend');
-const helper = require('../lib/helper');
-const cookie = require('cookie');
-const pick = require('object.pick');
-const url = require('url');
-const https = require('https');
-const http = require('http');
-const isStream = require('isstream');
-const requestFactory = require('../lib/requestwrapper');
-const RecognizeStream = require('./recognize_stream');
-const pkg = require('../package.json');
-const util = require('util');
-const BaseService = require('../lib/base_service');
-const async = require('async');
+var extend = require('extend');
+var helper = require('../lib/helper');
+var cookie = require('cookie');
+var pick = require('object.pick');
+var url = require('url');
+var https = require('https');
+var http = require('http');
+var isStream = require('isstream');
+var requestFactory = require('../lib/requestwrapper');
+var RecognizeStream = require('./recognize_stream');
+var pkg = require('../package.json');
+var util = require('util');
+var BaseService = require('../lib/base_service');
+var async = require('async');
 
-const PARAMS_ALLOWED = ['continuous', 'max_alternatives', 'timestamps', 'word_confidence', 'inactivity_timeout', 'model', 'content-type', // this is accepted in querystring by the service, but methods here all accept content_type and then set a header
+var PARAMS_ALLOWED = ['continuous', 'max_alternatives', 'timestamps', 'word_confidence', 'inactivity_timeout', 'model', 'content-type', // this is accepted in querystring by the service, but methods here all accept content_type and then set a header
 'interim_results', 'keywords', 'keywords_threshold', 'word_alternatives_threshold', 'profanity_filter', 'smart_formatting', 'customization_id', 'speaker_labels'];
 
 /**
@@ -41,7 +41,7 @@ const PARAMS_ALLOWED = ['continuous', 'max_alternatives', 'timestamps', 'word_co
  */
 function formatChunk(chunk) {
   // Convert the string into an array
-  let result = chunk;
+  var result = chunk;
 
   // Check if in the stream doesn't have
   // two results together and parse them
@@ -87,13 +87,13 @@ SpeechToTextV1.URL = 'https://stream.watsonplatform.net/speech-to-text/api';
  * @returns {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.registerCallback = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['callback_url']);
+  var missingParams = helper.getMissingParams(params, ['callback_url']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const parameters = {
+  var parameters = {
     requiredParams: ['callback_url'],
     options: {
       method: 'POST',
@@ -124,7 +124,7 @@ SpeechToTextV1.prototype.registerCallback = function (params, callback) {
  * @returns {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.createRecognitionJob = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['audio', 'content_type']);
+  var missingParams = helper.getMissingParams(params, ['audio', 'content_type']);
   if (missingParams) {
     callback(missingParams);
     return;
@@ -135,7 +135,7 @@ SpeechToTextV1.prototype.createRecognitionJob = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/recognitions',
@@ -167,7 +167,7 @@ SpeechToTextV1.prototype.getRecognitionJobs = function (params, callback) {
   if (!callback && typeof params === 'function') {
     callback = params;
   }
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v1/recognitions',
@@ -188,13 +188,13 @@ SpeechToTextV1.prototype.getRecognitionJobs = function (params, callback) {
  * @returns {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.getRecognitionJob = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['id']);
+  var missingParams = helper.getMissingParams(params, ['id']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v1/recognitions/{id}',
@@ -216,13 +216,13 @@ SpeechToTextV1.prototype.getRecognitionJob = function (params, callback) {
  * @returns {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.deleteRecognitionJob = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['id']);
+  var missingParams = helper.getMissingParams(params, ['id']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'DELETE',
       url: '/v1/recognitions/{id}',
@@ -258,7 +258,7 @@ SpeechToTextV1.prototype.deleteRecognitionJob = function (params, callback) {
  * @param {function} callback
  */
 SpeechToTextV1.prototype.recognize = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['audio', 'content_type']);
+  var missingParams = helper.getMissingParams(params, ['audio', 'content_type']);
   if (missingParams) {
     callback(missingParams);
     return;
@@ -268,16 +268,16 @@ SpeechToTextV1.prototype.recognize = function (params, callback) {
     return;
   }
 
-  const queryParams = pick(params, PARAMS_ALLOWED);
+  var queryParams = pick(params, PARAMS_ALLOWED);
   if (Array.isArray(queryParams.keywords)) {
     queryParams.keywords = queryParams.keywords.join(',');
   }
 
-  let _url = '/v1';
+  var _url = '/v1';
   _url += params.session_id ? '/sessions/' + params.session_id : '';
   _url += '/recognize';
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: _url,
@@ -308,16 +308,16 @@ SpeechToTextV1.prototype.recognize = function (params, callback) {
  * @param {function} callback
  */
 SpeechToTextV1.prototype.recognizeLive = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['session_id', 'content_type', 'cookie_session']);
+  var missingParams = helper.getMissingParams(params, ['session_id', 'content_type', 'cookie_session']);
 
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const serviceUrl = [this._options.url, '/v1/sessions/', params.session_id, '/recognize'].join('');
-  const parts = url.parse(serviceUrl);
-  const options = {
+  var serviceUrl = [this._options.url, '/v1/sessions/', params.session_id, '/recognize'].join('');
+  var parts = url.parse(serviceUrl);
+  var options = {
     agent: false,
     host: parts.hostname,
     port: parts.port,
@@ -329,10 +329,10 @@ SpeechToTextV1.prototype.recognizeLive = function (params, callback) {
       'Content-type': params.content_type
     }, this._options.headers)
   };
-  const protocol = parts.protocol.match('http:') ? http : https;
-  const recognize_req = protocol.request(options, function (result) {
+  var protocol = parts.protocol.match('http:') ? http : https;
+  var recognize_req = protocol.request(options, function (result) {
     result.setEncoding('utf-8');
-    let transcript = '';
+    var transcript = '';
 
     result.on('data', function (chunk) {
       transcript += chunk;
@@ -368,14 +368,14 @@ SpeechToTextV1.prototype.recognizeLive = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.observeResult = function (params, callback) {
-  const missingParams = helper.getMissingParams(params, ['session_id', 'cookie_session']);
+  var missingParams = helper.getMissingParams(params, ['session_id', 'cookie_session']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
-  const serviceUrl = [this._options.url, '/v1/sessions/', params.session_id, '/observe_result'].join('');
-  const parts = url.parse(serviceUrl);
-  const options = {
+  var serviceUrl = [this._options.url, '/v1/sessions/', params.session_id, '/observe_result'].join('');
+  var parts = url.parse(serviceUrl);
+  var options = {
     agent: false,
     host: parts.hostname,
     port: parts.port,
@@ -386,8 +386,8 @@ SpeechToTextV1.prototype.observeResult = function (params, callback) {
       Accept: 'application/json'
     }, this._options.headers)
   };
-  const protocol = parts.protocol.match('http:') ? http : https;
-  const req = protocol.request(options, function (result) {
+  var protocol = parts.protocol.match('http:') ? http : https;
+  var req = protocol.request(options, function (result) {
     result.setEncoding('utf-8');
     result.on('data', function (chunk) {
       try {
@@ -421,7 +421,7 @@ SpeechToTextV1.prototype.observeResult = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.getRecognizeStatus = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['session_id'],
     options: {
       method: 'GET',
@@ -442,7 +442,7 @@ SpeechToTextV1.prototype.getRecognizeStatus = function (params, callback) {
  * @return {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.getModels = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v1/models',
@@ -463,7 +463,7 @@ SpeechToTextV1.prototype.getModels = function (params, callback) {
  * @return {ReadableStream|undefined}
  */
 SpeechToTextV1.prototype.getModel = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['model_id'],
     options: {
       method: 'GET',
@@ -486,7 +486,7 @@ SpeechToTextV1.prototype.getModel = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.createSession = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/sessions',
@@ -508,7 +508,7 @@ SpeechToTextV1.prototype.createSession = function (params, callback) {
         cb(error, body, response);
         return;
       }
-      const cookies = cookie.parse(response.headers['set-cookie'][0]);
+      var cookies = cookie.parse(response.headers['set-cookie'][0]);
       body.cookie_session = cookies.SESSIONID;
       cb(error, body, response);
     };
@@ -525,7 +525,7 @@ SpeechToTextV1.prototype.createSession = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.deleteSession = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['session_id'],
     options: {
       method: 'DELETE',
@@ -558,11 +558,11 @@ SpeechToTextV1.prototype.createRecognizeStream = function (params) {
 
 // set up a warning message for the deprecated methods
 ['recognizeLive', 'observeResult'].forEach(function (name) {
-  const original = SpeechToTextV1.prototype[name];
+  var original = SpeechToTextV1.prototype[name];
   SpeechToTextV1.prototype[name] = function deprecated(params) {
     if (!(params || {}).silent && !this._options.silent) {
       // eslint-disable-next-line no-console
-      console.log(new Error(`The ${name}() method is deprecated and will be removed from a future version of the watson-developer-cloud SDK. Please use createRecognizeStream() instead.\n(Set {silent: true} to hide this message.)`));
+      console.log(new Error('The ' + name + '() method is deprecated and will be removed from a future version of the watson-developer-cloud SDK. Please use createRecognizeStream() instead.\n(Set {silent: true} to hide this message.)'));
     }
     return original.apply(this, arguments);
   };
@@ -586,7 +586,7 @@ SpeechToTextV1.prototype.createRecognizeStream = function (params) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.createCustomization = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['base_model_name', 'name'],
     options: {
       method: 'POST',
@@ -651,7 +651,7 @@ SpeechToTextV1.prototype.getCustomizations = function (params, callback) {
     callback = params;
     params = {};
   }
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v1/customizations/',
@@ -686,7 +686,7 @@ SpeechToTextV1.prototype.getCustomizations = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.getCustomization = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'GET',
@@ -708,7 +708,7 @@ SpeechToTextV1.prototype.getCustomization = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.trainCustomization = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'POST',
@@ -730,7 +730,7 @@ SpeechToTextV1.prototype.trainCustomization = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.resetCustomization = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'POST',
@@ -751,7 +751,7 @@ SpeechToTextV1.prototype.resetCustomization = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.deleteCustomization = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'DELETE',
@@ -775,7 +775,7 @@ SpeechToTextV1.prototype.deleteCustomization = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.addCorpus = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'name', 'corpus'],
     originalParams: params,
     options: {
@@ -818,7 +818,7 @@ SpeechToTextV1.prototype.addCorpus = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.getCorpora = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'GET',
@@ -852,7 +852,7 @@ SpeechToTextV1.prototype.getCorpora = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.getCorpus = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'name'],
     options: {
       method: 'GET',
@@ -874,7 +874,7 @@ SpeechToTextV1.prototype.getCorpus = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.deleteCorpus = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'name'],
     options: {
       method: 'DELETE',
@@ -904,11 +904,11 @@ SpeechToTextV1.ERR_TIMEOUT = 'ERR_TIMEOUT';
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.whenCustomizationReady = function (params, callback) {
-  const self = this;
+  var self = this;
 
   // check the customization status repeatedly until it's ready or available
 
-  const options = extend({
+  var options = extend({
     interval: 5000,
     times: 30
   }, params);
@@ -945,7 +945,7 @@ SpeechToTextV1.prototype.whenCustomizationReady = function (params, callback) {
  * @return {boolean}
  */
 function isProcessing(corporaList) {
-  const recordsBeingProcessed = corporaList.corpora.filter(function (record) {
+  var recordsBeingProcessed = corporaList.corpora.filter(function (record) {
     return record['status'] === 'being_processed';
   });
   if (recordsBeingProcessed.length === 0) {
@@ -962,7 +962,7 @@ function isProcessing(corporaList) {
  * @return {boolean}
  */
 function isAnalyzed(corporaList) {
-  const recordsAnalyzed = corporaList.corpora.filter(function (record) {
+  var recordsAnalyzed = corporaList.corpora.filter(function (record) {
     return record['status'] === 'analyzed';
   });
   if (recordsAnalyzed.length === corporaList.corpora.length) {
@@ -984,7 +984,7 @@ function isAnalyzed(corporaList) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.whenCorporaAnalyzed = function (params, callback) {
-  const self = this;
+  var self = this;
 
   async.parallel([
   // validate that it has at least one corpus
@@ -1003,7 +1003,7 @@ SpeechToTextV1.prototype.whenCorporaAnalyzed = function (params, callback) {
   },
   // check the customization status repeatedly until it's available
   function (next) {
-    const options = extend({
+    var options = extend({
       interval: 5000,
       times: 30
     }, params);
@@ -1046,7 +1046,7 @@ SpeechToTextV1.prototype.whenCorporaAnalyzed = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.addWords = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'words'],
     options: {
       method: 'POST',
@@ -1071,7 +1071,7 @@ SpeechToTextV1.prototype.addWords = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.addWord = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'word', 'sounds_like'],
     options: {
       method: 'PUT',
@@ -1135,7 +1135,7 @@ SpeechToTextV1.prototype.getWords = function (params, callback) {
     callback = params;
     params = {};
   }
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id'],
     options: {
       method: 'GET',
@@ -1170,7 +1170,7 @@ SpeechToTextV1.prototype.getWords = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.getWord = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'word'],
     options: {
       method: 'GET',
@@ -1194,7 +1194,7 @@ SpeechToTextV1.prototype.getWord = function (params, callback) {
  * @param {Function} callback
  */
 SpeechToTextV1.prototype.deleteWord = function (params, callback) {
-  const parameters = {
+  var parameters = {
     requiredParams: ['customization_id', 'word'],
     options: {
       method: 'DELETE',

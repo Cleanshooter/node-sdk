@@ -16,11 +16,11 @@
 
 'use strict';
 
-const extend = require('extend');
-const vcapServices = require('vcap_services');
-const helper = require('./helper');
-const request = require('request');
-const bufferFrom = require('buffer-from'); // new Buffer() is deprecated, replaced with Buffer.from() in node v4.5.0+ - this uses the new api when possible but falls back to the old one otherwise
+var extend = require('extend');
+var vcapServices = require('vcap_services');
+var helper = require('./helper');
+var request = require('request');
+var bufferFrom = require('buffer-from'); // new Buffer() is deprecated, replaced with Buffer.from() in node v4.5.0+ - this uses the new api when possible but falls back to the old one otherwise
 
 /**
  * Internal base class that other services inherit from
@@ -40,7 +40,7 @@ function BaseService(user_options) {
     // it might be better to just create a new instance and return that.. but that can't be done here, it has to be done in each individual service. So this is still a good failsafe even in that case.
     throw new Error('"new" keyword required to create Watson service instances');
   }
-  let options = extend({}, user_options);
+  var options = extend({}, user_options);
 
   options = this.initCredentials(options);
 
@@ -75,7 +75,7 @@ BaseService.prototype.initCredentials = function (options) {
     }
 
     // Calculate and add Authorization header to base options
-    const authHeader = {
+    var authHeader = {
       Authorization: 'Basic ' + bufferFrom(options.username + ':' + options.password).toString('base64')
     };
     options.headers = extend(authHeader, options.headers);

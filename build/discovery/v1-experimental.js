@@ -16,10 +16,10 @@
 
 'use strict';
 
-const util = require('util');
-const requestFactory = require('../lib/requestwrapper');
-const BaseService = require('../lib/base_service');
-const pick = require('object.pick');
+var util = require('util');
+var requestFactory = require('../lib/requestwrapper');
+var BaseService = require('../lib/base_service');
+var pick = require('object.pick');
 
 /**
  *
@@ -56,7 +56,7 @@ DiscoveryV1Experimental.VERSION_DATE_2016_07_11 = '2016-11-07';
 DiscoveryV1Experimental.prototype.getEnvironments = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/environments',
       method: 'GET',
@@ -77,7 +77,7 @@ DiscoveryV1Experimental.prototype.getEnvironments = function (params, callback) 
 DiscoveryV1Experimental.prototype.getEnvironment = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/environments/{environment_id}',
       method: 'GET',
@@ -100,7 +100,7 @@ DiscoveryV1Experimental.prototype.getEnvironment = function (params, callback) {
 DiscoveryV1Experimental.prototype.getCollections = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/environments/{environment_id}/collections',
       method: 'GET',
@@ -123,7 +123,7 @@ DiscoveryV1Experimental.prototype.getCollections = function (params, callback) {
 DiscoveryV1Experimental.prototype.getCollection = function (params, collectionId, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/environments/{environment_id}/collections/{collection_id}',
       method: 'GET',
@@ -152,7 +152,7 @@ DiscoveryV1Experimental.prototype.getCollection = function (params, collectionId
 DiscoveryV1Experimental.prototype.query = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/environments/{environment_id}/collections/{collection_id}/query',
       method: 'GET',

@@ -16,10 +16,10 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const url = require('url');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var url = require('url');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  * Authorization Service
@@ -37,7 +37,7 @@ function AuthorizationV1(options) {
   BaseService.call(this, options);
   this.target_url = options.url;
   // replace the url to always point to /authorization/api
-  const hostname = url.parse(this._options.url);
+  var hostname = url.parse(this._options.url);
   hostname.pathname = '/authorization/api';
   this._options.url = url.format(hostname);
 }
@@ -63,7 +63,7 @@ AuthorizationV1.prototype.getToken = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v1/token?url=' + params.url

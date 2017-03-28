@@ -16,10 +16,10 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const omit = require('object.omit');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var omit = require('object.omit');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -53,14 +53,14 @@ TradeoffAnalyticsV1.URL = 'https://gateway.watsonplatform.net/tradeoff-analytics
  */
 TradeoffAnalyticsV1.prototype.dilemmas = function (params, callback) {
   params = params || {};
-  const qs = {};
+  var qs = {};
   if (params.find_preferable_options) {
     qs.find_preferable_options = true;
   }
   if (params.generate_visualization === false) {
     qs.generate_visualization = false;
   }
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/dilemmas',
@@ -87,7 +87,7 @@ TradeoffAnalyticsV1.prototype.dilemmas = function (params, callback) {
 TradeoffAnalyticsV1.prototype.events = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v1/events',

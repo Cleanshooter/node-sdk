@@ -16,13 +16,13 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const pick = require('object.pick');
-const omit = require('object.omit');
-const isStream = require('isstream');
-const toCSV = require('./json-training-to-csv');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var pick = require('object.pick');
+var omit = require('object.omit');
+var isStream = require('isstream');
+var toCSV = require('./json-training-to-csv');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -52,7 +52,7 @@ NaturalLanguageClassifierV1.prototype.create = function (params, callback) {
     return;
   }
 
-  const self = this;
+  var self = this;
 
   toCSV(params.training_data, function (err, csv) {
     if (err) {
@@ -60,7 +60,7 @@ NaturalLanguageClassifierV1.prototype.create = function (params, callback) {
       return;
     }
 
-    const parameters = {
+    var parameters = {
       options: {
         url: '/v1/classifiers',
         method: 'POST',
@@ -91,7 +91,7 @@ NaturalLanguageClassifierV1.prototype.classify = function (params, callback) {
     params.classifier_id = params.classifier;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/classifiers/{classifier_id}/classify',
       method: 'POST',
@@ -117,7 +117,7 @@ NaturalLanguageClassifierV1.prototype.status = function (params, callback) {
     params.classifier_id = params.classifier;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/classifiers/{classifier_id}',
       method: 'GET',
@@ -135,7 +135,7 @@ NaturalLanguageClassifierV1.prototype.status = function (params, callback) {
  * Retrieves the list of classifiers for the user
  */
 NaturalLanguageClassifierV1.prototype.list = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/classifiers',
       method: 'GET',
@@ -158,7 +158,7 @@ NaturalLanguageClassifierV1.prototype.remove = function (params, callback) {
     params.classifier_id = params.classifier;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/classifiers/{classifier_id}',
       method: 'DELETE',

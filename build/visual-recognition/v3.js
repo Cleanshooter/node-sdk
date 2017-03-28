@@ -16,14 +16,14 @@
 
 'use strict';
 
-const extend = require('extend');
-const pick = require('object.pick');
-const isStream = require('isstream');
-const requestFactory = require('../lib/requestwrapper');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var extend = require('extend');
+var pick = require('object.pick');
+var isStream = require('isstream');
+var requestFactory = require('../lib/requestwrapper');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
-const NEGATIVE_EXAMPLES = 'negative_examples';
+var NEGATIVE_EXAMPLES = 'negative_examples';
 
 /**
  * JS-style logical XOR - works on objects, booleans, strings, etc following normal js truthy/falsy conventions
@@ -47,7 +47,7 @@ function xor(a, b) {
  * @return {String|undefined}
  */
 function detectContentType(buffer) {
-  const signature = buffer.readUInt32BE();
+  var signature = buffer.readUInt32BE();
   switch (signature) {// eslint-disable-line default-case
     case 0x504b0304:
     case 0x504b0506:
@@ -97,7 +97,7 @@ function fixupImageParam(params) {
  * @return {Function}
  */
 function errorFormatter(cb) {
-  const callback = typeof cb === 'function' ? cb /* no op */ : function () {};
+  var callback = typeof cb === 'function' ? cb /* no op */ : function () {};
   return function (err, result) {
     if (err) {
       callback(err, result);
@@ -145,10 +145,12 @@ VisualRecognitionV3.prototype.serviceDefaults = {
  * @param {Function} cb
  */
 VisualRecognitionV3.prototype.request = function (parameters, cb) {
-  const qs = parameters.options.qs;
+  var qs = parameters.options.qs;
   if (qs) {
     // array params are turned into a comma-separated string when in querystrings
-    Object.keys(qs).forEach(k => Array.isArray(qs[k]) && (qs[k] = qs[k].join(',')));
+    Object.keys(qs).forEach(function (k) {
+      return Array.isArray(qs[k]) && (qs[k] = qs[k].join(','));
+    });
   }
   return requestFactory(parameters, cb);
 };
@@ -255,7 +257,7 @@ VisualRecognitionV3.prototype.classify = function (params, callback) {
     owners: ['me', 'IBM']
   }, params);
 
-  let parameters;
+  var parameters = void 0;
 
   if (params.images_file) {
     parameters = {
@@ -343,7 +345,7 @@ VisualRecognitionV3.prototype.detectFaces = function (params, callback) {
     return;
   }
 
-  let parameters;
+  var parameters = void 0;
 
   if (params.images_file) {
     parameters = {
@@ -432,7 +434,7 @@ VisualRecognitionV3.prototype.recognizeText = function (params, callback) {
     return;
   }
 
-  let parameters;
+  var parameters = void 0;
 
   if (params.images_file) {
     parameters = {
@@ -510,7 +512,7 @@ VisualRecognitionV3.prototype.recognizeText = function (params, callback) {
 VisualRecognitionV3.prototype.createClassifier = function (params, callback) {
   params = params || {};
 
-  const example_keys = Object.keys(params).filter(function (key) {
+  var example_keys = Object.keys(params).filter(function (key) {
     return key === NEGATIVE_EXAMPLES || key.match(/^.+_positive_examples$/);
   });
 
@@ -519,9 +521,9 @@ VisualRecognitionV3.prototype.createClassifier = function (params, callback) {
     return;
   }
   // todo: validate that all *_examples are streams or else objects with buffers and content-types
-  const allowed_keys = ['name', NEGATIVE_EXAMPLES].concat(example_keys);
+  var allowed_keys = ['name', NEGATIVE_EXAMPLES].concat(example_keys);
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/classifiers',
       method: 'POST',
@@ -564,11 +566,11 @@ VisualRecognitionV3.prototype.createClassifier = function (params, callback) {
 VisualRecognitionV3.prototype.retrainClassifier = function (params, callback) {
   params = params || {};
 
-  const allowed_keys = Object.keys(params).filter(function (key) {
+  var allowed_keys = Object.keys(params).filter(function (key) {
     return key === NEGATIVE_EXAMPLES || key.match(/^.+_positive_examples$/);
   });
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/classifiers/' + params.classifier_id,
       method: 'POST',
@@ -604,7 +606,7 @@ VisualRecognitionV3.prototype.retrainClassifier = function (params, callback) {
  * @return {ReadableStream|undefined}
  */
 VisualRecognitionV3.prototype.listClassifiers = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v3/classifiers',
@@ -639,7 +641,7 @@ VisualRecognitionV3.prototype.listClassifiers = function (params, callback) {
  * @return {ReadableStream|undefined}
  */
 VisualRecognitionV3.prototype.getClassifier = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v3/classifiers/{classifier_id}',
@@ -661,7 +663,7 @@ VisualRecognitionV3.prototype.getClassifier = function (params, callback) {
  * @return {ReadableStream|undefined}
  */
 VisualRecognitionV3.prototype.deleteClassifier = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       method: 'DELETE',
       url: '/v3/classifiers/{classifier_id}',
@@ -696,7 +698,7 @@ VisualRecognitionV3.prototype.deleteClassifier = function (params, callback) {
 VisualRecognitionV3.prototype.createCollection = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections',
       method: 'POST',
@@ -729,7 +731,7 @@ VisualRecognitionV3.prototype.createCollection = function (params, callback) {
 VisualRecognitionV3.prototype.getCollection = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}',
       method: 'GET',
@@ -764,7 +766,7 @@ VisualRecognitionV3.prototype.listCollections = function (params, callback) {
     callback = params;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections',
       method: 'GET',
@@ -786,7 +788,7 @@ VisualRecognitionV3.prototype.listCollections = function (params, callback) {
 VisualRecognitionV3.prototype.deleteCollection = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}',
       method: 'DELETE',
@@ -832,7 +834,7 @@ VisualRecognitionV3.prototype.addImage = function (params, callback) {
     throw new Error('image_file param must be a standard Node.js Stream');
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images',
       method: 'POST',
@@ -875,7 +877,7 @@ VisualRecognitionV3.prototype.addImage = function (params, callback) {
 VisualRecognitionV3.prototype.listImages = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images',
       method: 'GET',
@@ -906,7 +908,7 @@ VisualRecognitionV3.prototype.listImages = function (params, callback) {
 VisualRecognitionV3.prototype.getImage = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images/{image_id}',
       method: 'GET',
@@ -931,7 +933,7 @@ VisualRecognitionV3.prototype.getImage = function (params, callback) {
 VisualRecognitionV3.prototype.deleteImage = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images/{image_id}',
       method: 'DELETE',
@@ -957,7 +959,7 @@ VisualRecognitionV3.prototype.deleteImage = function (params, callback) {
 VisualRecognitionV3.prototype.setImageMetadata = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images/{image_id}/metadata',
       method: 'PUT',
@@ -998,7 +1000,7 @@ VisualRecognitionV3.prototype.setImageMetadata = function (params, callback) {
 VisualRecognitionV3.prototype.getImageMetadata = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images/{image_id}/metadata',
       method: 'GET',
@@ -1023,7 +1025,7 @@ VisualRecognitionV3.prototype.getImageMetadata = function (params, callback) {
 VisualRecognitionV3.prototype.deleteImageMetadata = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/images/{image_id}/metadata',
       method: 'DELETE',
@@ -1073,7 +1075,7 @@ VisualRecognitionV3.prototype.findSimilar = function (params, callback) {
     throw new Error('image_file param must be a standard Node.js Stream');
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v3/collections/{collection_id}/find_similar',
       method: 'POST',

@@ -61,6 +61,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
+    "babel-preset-es2015": "^6.24.0",
     "browserify": "^14.0.0",
     "concat-stream": "^1.5.1",
     "dependency-lint": "^4.2.0",
@@ -119,6 +120,6 @@
     "watchify": "watchify index.js --standalone Watson --outfile dist/watson.js --debug --verbose",
     "minify": "uglifyjs --compress --mangle --screw-ie8 dist/watson.js --output dist/watson.min.js --preamble \"// Watson Developer Cloud\n// JavaScript SDK$npm_package_version\n// Generated at `date`\n// Copyright IBM ($npm_package_license)\n// $npm_package_homepage\"",
     "build": "npm run browserify && npm run minify",
-    "babel-build": "babel src --out-dir build"
+    "babel-build": "babel src --out-dir build --presets=es2015"
   }
 }

@@ -16,10 +16,10 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const pick = require('object.pick');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var pick = require('object.pick');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -191,7 +191,7 @@ ConversationV1.VERSION_DATE_2017_02_03 = '2017-02-03';
 ConversationV1.prototype.message = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/message',
       method: 'POST',
@@ -235,7 +235,7 @@ ConversationV1.prototype.listWorkspaces = function (params, callback) {
     callback = params;
     params = null;
   }
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces',
       method: 'GET'
@@ -352,7 +352,7 @@ ConversationV1.prototype.listWorkspaces = function (params, callback) {
 ConversationV1.prototype.createWorkspace = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces',
       method: 'POST',
@@ -391,7 +391,7 @@ ConversationV1.prototype.createWorkspace = function (params, callback) {
 ConversationV1.prototype.getWorkspace = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}',
       method: 'GET',
@@ -419,7 +419,7 @@ ConversationV1.prototype.getWorkspace = function (params, callback) {
 ConversationV1.prototype.deleteWorkspace = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}',
       method: 'DELETE',
@@ -542,7 +542,7 @@ ConversationV1.prototype.deleteWorkspace = function (params, callback) {
 ConversationV1.prototype.updateWorkspace = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}',
       method: 'POST',
@@ -578,7 +578,7 @@ ConversationV1.prototype.updateWorkspace = function (params, callback) {
 ConversationV1.prototype.workspaceStatus = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/status',
       method: 'GET',
@@ -607,7 +607,7 @@ ConversationV1.prototype.workspaceStatus = function (params, callback) {
 ConversationV1.prototype.createIntent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents',
       method: 'POST',
@@ -635,7 +635,7 @@ ConversationV1.prototype.createIntent = function (params, callback) {
 ConversationV1.prototype.getIntents = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents',
       method: 'GET',
@@ -664,7 +664,7 @@ ConversationV1.prototype.getIntents = function (params, callback) {
 ConversationV1.prototype.getIntent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}',
       method: 'GET',
@@ -695,7 +695,7 @@ ConversationV1.prototype.getIntent = function (params, callback) {
 ConversationV1.prototype.updateIntent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{old_intent}',
       method: 'POST',
@@ -723,7 +723,7 @@ ConversationV1.prototype.updateIntent = function (params, callback) {
 ConversationV1.prototype.deleteIntent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}',
       method: 'DELETE',
@@ -750,7 +750,7 @@ ConversationV1.prototype.deleteIntent = function (params, callback) {
 ConversationV1.prototype.getExamples = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}/examples',
       method: 'GET',
@@ -778,7 +778,7 @@ ConversationV1.prototype.getExamples = function (params, callback) {
 ConversationV1.prototype.createExample = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}/examples',
       method: 'POST',
@@ -807,7 +807,7 @@ ConversationV1.prototype.createExample = function (params, callback) {
 ConversationV1.prototype.deleteExample = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}/examples/{text}',
       method: 'DELETE',
@@ -835,7 +835,7 @@ ConversationV1.prototype.deleteExample = function (params, callback) {
 ConversationV1.prototype.getExample = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}/examples/{text}',
       method: 'GET',
@@ -864,7 +864,7 @@ ConversationV1.prototype.getExample = function (params, callback) {
 ConversationV1.prototype.updateExample = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/intents/{intent}/examples/{old_text}',
       method: 'POST',

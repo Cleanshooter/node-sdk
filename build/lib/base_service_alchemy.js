@@ -1,8 +1,8 @@
 'use strict';
 
-const util = require('util');
-const extend = require('extend');
-const BaseService = require('./base_service');
+var util = require('util');
+var extend = require('extend');
+var BaseService = require('./base_service');
 
 /**
  * Variation of BaseService for Alchemy API services (and Visual Recognition v3)

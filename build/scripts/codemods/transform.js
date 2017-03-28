@@ -79,3 +79,4 @@
 //   //   .renameTo('bar')
 //   //   .toSource();
 // };
+"use strict";

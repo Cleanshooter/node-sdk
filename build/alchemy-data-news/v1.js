@@ -16,11 +16,11 @@
 
 'use strict';
 
-const extend = require('extend');
-const requestFactory = require('../lib/requestwrapper');
-const util = require('util');
-const BaseServiceAlchemy = require('../lib/base_service_alchemy');
-const errorFormatter = require('../lib/alchemy_error_formatter');
+var extend = require('extend');
+var requestFactory = require('../lib/requestwrapper');
+var util = require('util');
+var BaseServiceAlchemy = require('../lib/base_service_alchemy');
+var errorFormatter = require('../lib/alchemy_error_formatter');
 
 /**
  * @param {Object} options
@@ -46,7 +46,7 @@ AlchemyDataNewsV1.URL = 'https://gateway-a.watsonplatform.net/calls';
 AlchemyDataNewsV1.prototype.getNews = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/data/GetNews',
       method: 'GET',

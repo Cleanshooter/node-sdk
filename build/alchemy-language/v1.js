@@ -16,18 +16,18 @@
 
 'use strict';
 
-const extend = require('extend');
-const util = require('util');
-const BaseServiceAlchemy = require('../lib/base_service_alchemy');
-const requestFactory = require('../lib/requestwrapper');
+var extend = require('extend');
+var util = require('util');
+var BaseServiceAlchemy = require('../lib/base_service_alchemy');
+var requestFactory = require('../lib/requestwrapper');
 // IMPORTANT:
 // Due to the current design, the URL must be the last key on each endpoint or
 // it could inadvertently clobber a url query param in the users request.
 // see #236
-const endpoints = require('../lib/alchemy_endpoints.json');
-const helper = require('../lib/helper');
-const pick = require('object.pick');
-const errorFormatter = require('../lib/alchemy_error_formatter');
+var endpoints = require('../lib/alchemy_endpoints.json');
+var helper = require('../lib/helper');
+var pick = require('object.pick');
+var errorFormatter = require('../lib/alchemy_error_formatter');
 
 /**
  * @privte
@@ -36,16 +36,16 @@ const errorFormatter = require('../lib/alchemy_error_formatter');
  */
 function createRequest(method) {
   return function (_params, callback) {
-    const params = _params || {};
-    const accepted_formats = Object.keys(endpoints[method]);
-    const format = helper.getFormat(params, accepted_formats);
+    var params = _params || {};
+    var accepted_formats = Object.keys(endpoints[method]);
+    var format = helper.getFormat(params, accepted_formats);
 
     if (format === null) {
       callback(new Error('Missing required parameters: ' + accepted_formats.join(', ') + ' needs to be specified'));
       return;
     }
 
-    const parameters = {
+    var parameters = {
       options: {
         url: endpoints[method][format],
         method: 'POST',
@@ -101,8 +101,8 @@ AlchemyLanguageV1.prototype.concepts = createRequest('concepts');
  * Calculates the sentiment for text, a URL or HTML.
  */
 AlchemyLanguageV1.prototype.sentiment = function (params, callback) {
-  const _params = extend({}, params);
-  const service = params.target || params.targets ? 'sentiment_targeted' : 'sentiment';
+  var _params = extend({}, params);
+  var service = params.target || params.targets ? 'sentiment_targeted' : 'sentiment';
   if (Array.isArray(_params.targets)) {
     _params.targets = _params.targets.join('|');
   }
@@ -114,7 +114,7 @@ AlchemyLanguageV1.prototype.sentiment = function (params, callback) {
  * if raw = true, extracts the cleaned text (removes ads, navigation, etc.).
  */
 AlchemyLanguageV1.prototype.text = function (params, callback) {
-  const service = params && params.raw ? 'text_raw' : 'text';
+  var service = params && params.raw ? 'text_raw' : 'text';
   return createRequest(service).call(this, params, callback);
 };
 
@@ -217,8 +217,8 @@ AlchemyLanguageV1.prototype.combined = createRequest('combined');
  * @param {Function} callback
  */
 AlchemyLanguageV1.prototype.emotion = function (params, callback) {
-  const _params = extend({}, params);
-  const service = params.target || params.targets ? 'emotion_targeted' : 'emotion';
+  var _params = extend({}, params);
+  var service = params.target || params.targets ? 'emotion_targeted' : 'emotion';
   if (Array.isArray(_params.targets)) {
     _params.targets = _params.targets.join('|');
   }

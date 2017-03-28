@@ -16,10 +16,10 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const pick = require('object.pick');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var pick = require('object.pick');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -52,7 +52,7 @@ ConversationV1Experimental.URL = 'https://gateway.watsonplatform.net/conversatio
 ConversationV1Experimental.prototype.message = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/workspaces/{workspace_id}/message',
       method: 'POST',

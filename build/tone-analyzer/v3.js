@@ -16,11 +16,11 @@
 
 'use strict';
 
-const extend = require('extend');
-const pick = require('object.pick');
-const requestFactory = require('../lib/requestwrapper');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var extend = require('extend');
+var pick = require('object.pick');
+var requestFactory = require('../lib/requestwrapper');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  * Tone Analyzer
@@ -69,8 +69,8 @@ ToneAnalyzerV3.prototype.tone = function (params, callback) {
     callback(new Error('Missing required parameters: text'));
     return;
   }
-  const contentType = params.isHTML ? 'text/html' : 'text/plain';
-  const parameters = {
+  var contentType = params.isHTML ? 'text/html' : 'text/plain';
+  var parameters = {
     options: {
       url: '/v3/tone',
       method: 'POST',

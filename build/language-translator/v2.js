@@ -16,13 +16,13 @@
 
 'use strict';
 
-const requestFactory = require('../lib/requestwrapper');
-const extend = require('extend');
-const pick = require('object.pick');
-const isStream = require('isstream');
-const helper = require('../lib/helper');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var requestFactory = require('../lib/requestwrapper');
+var extend = require('extend');
+var pick = require('object.pick');
+var isStream = require('isstream');
+var helper = require('../lib/helper');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -39,7 +39,7 @@ function LanguageTranslatorV2(options) {
   // todo: consider checking for options.url === LanguageTranslationV2.URL and also throw this warning then.
   // (This probably does't matter since the api didn't change)
   if (!options.url) {
-    const err = new Error('LanguageTranslatorV2 currently defaults to the url for LanguageTranslationV2, ' + 'but this will change in the next major release of the watson-developer-cloud Node.js SDK. ' + 'Please either specify the url https://gateway.watsonplatform.net/language-translator/api or else use ' + 'LanguageTranslationV2. ' + 'See http://www.ibm.com/watson/developercloud/doc/language-translator/migrating.shtml for more details.');
+    var err = new Error('LanguageTranslatorV2 currently defaults to the url for LanguageTranslationV2, ' + 'but this will change in the next major release of the watson-developer-cloud Node.js SDK. ' + 'Please either specify the url https://gateway.watsonplatform.net/language-translator/api or else use ' + 'LanguageTranslationV2. ' + 'See http://www.ibm.com/watson/developercloud/doc/language-translator/migrating.shtml for more details.');
     // eslint-disable-next-line no-console
     console.warn(err);
   }
@@ -65,7 +65,7 @@ LanguageTranslatorV2.URL = 'https://gateway.watsonplatform.net/language-translat
 LanguageTranslatorV2.prototype.getModels = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v2/models',
@@ -84,7 +84,7 @@ LanguageTranslatorV2.prototype.getModels = function (params, callback) {
 LanguageTranslatorV2.prototype.getModel = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'GET',
       url: '/v2/models/{model_id}',
@@ -109,15 +109,15 @@ LanguageTranslatorV2.prototype.getModel = function (params, callback) {
 LanguageTranslatorV2.prototype.createModel = function (params, callback) {
   params = params || {};
 
-  const missingParams = helper.getMissingParams(params, ['base_model_id']);
+  var missingParams = helper.getMissingParams(params, ['base_model_id']);
   if (missingParams) {
     callback(missingParams);
     return;
   }
 
-  const inputTypes = ['forced_glossary', 'parallel_corpus', 'monolingual_corpus'];
+  var inputTypes = ['forced_glossary', 'parallel_corpus', 'monolingual_corpus'];
 
-  for (const type in inputTypes) {
+  for (var type in inputTypes) {
     if (inputTypes.hasOwnProperty(type)) {
       if (params[inputTypes[type]] && !isStream(params[inputTypes[type]])) {
         callback(new Error(inputTypes[type] + ' is not a standard Node.js Stream'));
@@ -126,7 +126,7 @@ LanguageTranslatorV2.prototype.createModel = function (params, callback) {
     }
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'POST',
       url: '/v2/models',
@@ -146,7 +146,7 @@ LanguageTranslatorV2.prototype.createModel = function (params, callback) {
 LanguageTranslatorV2.prototype.deleteModel = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       method: 'DELETE',
       url: '/v2/models/{model_id}',
@@ -171,7 +171,7 @@ LanguageTranslatorV2.prototype.translate = function (params, callback) {
     callback(new Error('Missing required parameters: model_id or source and target'));
     return;
   }
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v2/translate',
       method: 'POST',
@@ -191,7 +191,7 @@ LanguageTranslatorV2.prototype.translate = function (params, callback) {
 LanguageTranslatorV2.prototype.getIdentifiableLanguages = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v2/identifiable_languages',
       method: 'GET'
@@ -212,7 +212,7 @@ LanguageTranslatorV2.prototype.identify = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v2/identify',
       method: 'POST',

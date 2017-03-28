@@ -16,13 +16,13 @@
 
 'use strict';
 
-const extend = require('extend');
-const requestFactory = require('../lib/requestwrapper');
-const pick = require('object.pick');
-const omit = require('object.omit');
-const isStream = require('isstream');
-const util = require('util');
-const BaseService = require('../lib/base_service');
+var extend = require('extend');
+var requestFactory = require('../lib/requestwrapper');
+var pick = require('object.pick');
+var omit = require('object.omit');
+var isStream = require('isstream');
+var util = require('util');
+var BaseService = require('../lib/base_service');
 
 /**
  *
@@ -49,7 +49,7 @@ DialogV1.URL = 'https://gateway.watsonplatform.net/dialog/api';
 DialogV1.prototype.getProfile = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/profile',
       method: 'GET',
@@ -70,7 +70,7 @@ DialogV1.prototype.getProfile = function (params, callback) {
 DialogV1.prototype.updateProfile = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/profile',
       method: 'PUT',
@@ -91,7 +91,7 @@ DialogV1.prototype.updateProfile = function (params, callback) {
 DialogV1.prototype.getConversation = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/conversation',
       method: 'GET',
@@ -113,7 +113,7 @@ DialogV1.prototype.getConversation = function (params, callback) {
 DialogV1.prototype.conversation = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/conversation',
       method: 'POST',
@@ -134,7 +134,7 @@ DialogV1.prototype.conversation = function (params, callback) {
 DialogV1.prototype.updateContent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/content',
       method: 'PUT',
@@ -154,7 +154,7 @@ DialogV1.prototype.updateContent = function (params, callback) {
 DialogV1.prototype.getContent = function (params, callback) {
   params = params || {};
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}/content',
       method: 'GET',
@@ -184,7 +184,7 @@ DialogV1.prototype.createDialog = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs',
       method: 'POST',
@@ -201,7 +201,7 @@ DialogV1.prototype.createDialog = function (params, callback) {
  * Returns the dialogs associated with a service instance
  */
 DialogV1.prototype.getDialogs = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs',
       method: 'GET',
@@ -216,7 +216,7 @@ DialogV1.prototype.getDialogs = function (params, callback) {
  * Delete a dialog and removes all associated data
  */
 DialogV1.prototype.deleteDialog = function (params, callback) {
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}',
       method: 'DELETE',
@@ -246,7 +246,7 @@ DialogV1.prototype.updateDialog = function (params, callback) {
     return;
   }
 
-  const parameters = {
+  var parameters = {
     options: {
       url: '/v1/dialogs/{dialog_id}',
       method: 'PUT',
